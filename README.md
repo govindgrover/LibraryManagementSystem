@@ -82,9 +82,6 @@ We have made some dummy data pre-processed into the system and the same has been
       Password:  user01@lms.com
   	```
 
-  - For dummy book pdf and cover images, we have made available some files in the `root/__dummy_book_data` folder.
-
-
 ## Features
 
 ### Access Restriction Pattern
