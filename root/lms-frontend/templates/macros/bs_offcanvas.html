@@ -1,0 +1,14 @@
+{% macro BS_OFFCANVAS(offcanvas_id, offcanvas_title) %}
+
+<div class="offcanvas offcanvas-end"  data-bs-backdrop="static" tabindex="-1" id="{{ offcanvas_id }}"
+aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas-header">
+	<h5 class="offcanvas-title" id="informationOffcanvas_Label">{{ offcanvas_title }}</h5>
+	<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+
+	{{ caller() }}
+
+</div>
+
+{% endmacro %}

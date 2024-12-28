@@ -1,0 +1,38 @@
+{# including HTML head tag' starting part #}
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Access Denied</title>
+
+<!-- custom css -->
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" />
+
+{# including HTML head tag' ending part #}
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<div class="container-fluid bg-dark" >
+		<div class="row vertical-center">
+
+			<div class="col text-center">
+				<div class="col m-4 text-warning" >
+					<h1 class="mx-4">
+						<i class="bi bi-ban fs-1"></i>
+					</h1>
+					<span class="display-6 text-danger">Access Denied</span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	{% include "/includes/bs_toast.html" %}
+
+</body>
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+<script type="module" src="{{ url_for('static', filename = 'js/pages/login_submit.js') }}"></script>
+
+{% include "/includes/html_end.html" %}

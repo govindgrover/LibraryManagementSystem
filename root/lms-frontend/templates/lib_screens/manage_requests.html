@@ -1,0 +1,95 @@
+{% import "macros/bs_modal.html" as bs_modal %}
+
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Pending Requests | Librarian</title>
+
+<!-- custom css -->
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" /> -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<!-- NAVBAR STARTS : common to all librarian pages -->
+	{% include "includes/navbar.html" %}
+	<!-- NAVBAR ENDS -->
+
+	<div class="container pt-5">
+		<h1 class="mb-5">Approve Requests</h1>
+
+		<div class="table-responsive mb-5">
+			<table id="theRequestsDataTable" class="table table-striped table-hover caption-top">
+			</table>
+		</div>
+
+		<!-- purchase_book_modal modal -->
+		{% call bs_modal.BS_MODAL('purchase_book_modal', 'Please complete the required') %}
+
+		<form action="/lib/process/issue-requests/purchase" name="purchase-book-form" method="POST">
+			<div class="modal-body">
+				<div class="input-group mb-3">
+					<label class="input-group-text" for="transaction_id">Transaction ID</label>
+					<input type="text" class="form-control" id="transaction_id" name="transaction_id" required />					
+				</div>
+
+				<div class="input-group mb-3">
+					<label class="input-group-text" for="written_cost">Price Charged</label>
+					<input type="numeric" class="form-control" id="written_cost" name="written_cost" required />					
+				</div>
+
+				<input type="hidden" class="form-control" app-data-id='hidden_user_id' name="book_requested_by" value="" required />
+				<input type="hidden" class="form-control" app-data-id='hidden_book_id' name="requested_book_id" value="" required />
+		</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Cancel</button>
+				<button type="submit" class="btn btn-outline-info">Proceed ?</button>
+			</form>
+		</div>
+
+		{% endcall %}
+
+
+
+
+	</div>
+
+	{% include "/includes/bs_toast.html" %}
+
+</body>
+
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+	integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+
+<script type="module" src="{{ url_for('static', filename = 'js/pages/lib/manage_requests.js') }}"></script>
+
+<script type="text/javascript">
+	function processPurchase(event) {
+		document.querySelectorAll("input[app-data-id='hidden_user_id']").forEach(element => {
+			element.setAttribute(
+				"value"
+				, $(event).parents().find(".requestee-id").attr("value")
+			);
+		});
+
+		document.querySelectorAll("input[app-data-id='hidden_book_id']").forEach(element => {
+			element.setAttribute(
+				"value"
+				, $(event).parents().find(".requested-book-id").attr("value")
+			);
+		});
+
+		return;
+	}
+</script>
+
+</html>

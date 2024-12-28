@@ -1,0 +1,33 @@
+{# including HTML head tag' starting part #}
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Home | LMS</title>
+
+<!-- custom css -->
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" />
+
+{# including HTML head tag' ending part #}
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<!-- NAVBAR STARTS : common to all librarian pages -->
+	{% include "includes/navbar.html" %}
+	<!-- NAVBAR ENDS -->
+
+	<div class="container">
+		<div class="">
+			<h3 class="mt-5">
+				Dear {{ session["app_user"]["name"].split()[0] }},
+			</h3>
+			<p>
+				kindly use navigation bar to browse features.
+			</p>
+		</div>
+	</div>
+</body>
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+{% include "/includes/html_end.html" %}

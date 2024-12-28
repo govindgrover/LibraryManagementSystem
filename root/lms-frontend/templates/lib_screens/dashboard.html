@@ -1,0 +1,44 @@
+	{% include "/includes/html_head_start.html" %}
+
+	<!-- page title -->
+	<title>Librarian | Dashboard</title>
+
+	<!-- custom css -->
+	<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" /> -->
+
+	{% include "/includes/html_head_end.html" %}
+
+	<body class="">
+		<!-- NAVBAR STARTS : common to all librarian pages -->
+		{% include "includes/navbar.html" %}
+		<!-- NAVBAR ENDS -->
+
+		<div class="container pt-5">
+			<h1 class="mb-5">Dashboard</h1>
+
+			{% if session["app_user"]["role"] in (0, 1) %}
+			<h5 class="text-center my-5">Here is some analysis</h5>
+			<div class="row row-cols-1 row-cols-md-2 g-4 mb-5 text-center">
+					{% for link in graph_data %}
+		
+					<div class="col">
+						<img
+							src="{{ config['ROUTE_TO_GET_DASHBOARD_GRAPHS'] }}/{{ link }}"
+							class="img-fluid rounded mx-auto d-block"
+							width="600px"
+							height="500px"
+							style="border: double lightskyblue 1.09px;"
+						/>
+					</div>
+		
+					{% endfor %}
+
+			</div>
+			{% endif %}
+	
+		</div>
+	</body>
+
+	{# including HTML script tag' #}
+	{% include "/includes/scripts.html" %}
+</html>

@@ -1,0 +1,151 @@
+
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Active Borrow History | Librarian</title>
+
+<!-- custom css -->
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" /> -->
+
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.css" />
+
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<!-- NAVBAR STARTS : common to all librarian pages -->
+	{% include "includes/navbar.html" %}
+	<!-- NAVBAR ENDS -->
+
+	<div class="container pt-5">
+		<h1 class="mb-5">Manage Active Borrows</h1>
+
+		<div class="table-responsive mb-5">
+			<table id="theBorrowDataTable" class="table table-striped table-hover caption-top">
+			</table>
+		</div>
+
+
+	</div>
+
+	{% include "/includes/bs_toast.html" %}
+
+</body>
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+	integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+
+<script type="module" src="{{ url_for('static', filename = 'js/pages/lib/manage_borrow_history.js') }}"></script>
+
+<script type="text/javascript">
+	function processGrant(event) {
+		let theRowId = event.parentElement.parentElement.parentElement.getAttribute("id");
+
+		document.querySelectorAll("input[app-data-id='hidden_book_id']").forEach(element => {
+			element.setAttribute(
+				"value"
+				, theRowId
+			);
+		});
+
+		if (event.parentElement.parentElement.parentElement.getAttribute("class").includes("success")) {
+			document.getElementById("update_book_active_status_checkbox").setAttribute(
+				"checked"
+				, "checked"
+			);
+		}
+
+		let data = $(event).data('hidden_data');
+
+		let bookDetailsModal = document.getElementById("view_book_details_modal");
+		let bookDetailsModalLabel = document.getElementById("view_book_details_modal_Label");
+
+		let bookDetailsModalContentBody = document.getElementById("modalContentBody");
+
+		bookDetailsModalLabel.innerText = "Book details";
+
+		const modal = new bootstrap.Modal('#view_book_details_modal', {
+			//
+		})
+
+		let authors = '';
+		data["authors"].forEach(a => {
+			authors += (a + ", ");
+		})
+
+		let category = '';
+		data["category"].forEach(c => {
+			category += (c + ", ");
+		})
+
+		let genre = '';
+		data["genre"].forEach(g => {
+			genre += (g + ", ");
+		})
+
+		let feedback = '';
+		data["feedbacks"].forEach(f => {
+			feedback += (f["rating"] + "Stars") + " - " + f["feedback"] + "<br />";
+		})
+
+		let cover_image = "{{ config['ROUTE_TO_GET_BOOK_COVER_IMAGE'] }}/" + data["cover_image"];
+
+		bookDetailsModalContentBody.innerHTML = (
+			"<div class='row my-2'>"
+			+ "<div class='col-3'><b>Authors</b></div>"
+			+ "<div class='col'>" + authors + "</div>"
+			+ "</div>"
+
+			+ "<div class='row my-2'>"
+			+ "<div class='col-3'><b>Publisher</b></div>"
+			+ "<div class='col'>" + data["publisher"] + "</div>"
+			+ "</div>"
+
+			+ "<div class='row my-2'>"
+			+ "<div class='col-3'><b>Categories</b></div>"
+			+ "<div class='col'>" + category + "</div>"
+			+ "</div>"
+
+			+ "<div class='row my-2'>"
+			+ "<div class='col-3'><b>Genres</b></div>"
+			+ "<div class='col'>" + genre + "</div>"
+			+ "</div>"
+
+			+ "<div class='row my-2'>"
+			+ "<div class='col-3'><b>Language</b></div>"
+			+ "<div class='col'>" + data["language"] + "</div>"
+			+ "</div>"
+
+			+ "<div class='row my-2'>"
+			+ "<div class='col-3'><b>Description</b></div>"
+			+ "<div class='col'>" + data["description"] + "</div>"
+			+ "</div>"
+
+			+ "<div class='row my-2'>"
+			+ "<div class='col-3'><b>Feedbacks</b></div>"
+			+ "<div class='col'>" + feedback + "</div>"
+			+ "</div>"
+
+			+ "<div class='row text-center my-2'>"
+			+ "<div class='col'><b>Cover Image</b></div>"
+			+ "</div>"
+
+			+ "<div class='row my-2'>"
+			+ "<div class='col text-center'>\
+					<img src='" + cover_image + "' width='300px' height='300px' alt='book\'s cover image' />\
+				</div>"
+			+ "</div>"
+		);
+
+		modal.show(bookDetailsModal);
+
+		return;
+	}
+</script>
+
+</html>

@@ -1,0 +1,79 @@
+{% import "macros/bs_modal.html" as bs_modal %}
+
+{# including HTML head tag' starting part #}
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Browse Books | LMS</title>
+
+<!-- custom css -->
+
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" />
+
+{# including HTML head tag' ending part #}
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<!-- NAVBAR STARTS : common to all librarian pages -->
+	{% include "includes/navbar.html" %}
+	<!-- NAVBAR ENDS -->
+
+	<div class="container pt-5">
+		<h1 class="mb-5">Browse Books</h1>
+
+		{% if data_to_browse|length == 0 %}
+		<h4 class="text-center text-warning">
+			Currently there are no books to display!
+		</h4>
+		{% endif %}
+
+		<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+
+			{% for book in data_to_browse %}
+			<div class="col">
+				<div class="card h-100">
+					<img src="{{ config['ROUTE_TO_GET_BOOK_COVER_IMAGE'] }}/{{ book.cover_image }}" class="card-img-top" alt="{{ book.title }}">
+					<div class="card-body">
+						<h5 class="card-title">
+							<span class="badge text-bg-light">{{ book.language }}</span>
+							{{ book.title }}
+						</h5>
+						<p class="card-text">
+							{% for author in book.authors %}
+							<span class="badge text-bg-success">{{ author }}</span>
+							{% endfor %}
+						</p>
+						<p class="card-text">{{ book.description }}</p>
+						<p class="card-text"><strong>ISBN:</strong> {{ book.isbn }}</p>
+						<p class="card-text"><strong>Edition:</strong> {{ book.edition }}</p>
+						<p class="card-text"><strong>Price:</strong> ₹{{ book.price }}</p>
+						<p class="card-text"><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+						<p class="card-text">
+							{% for category in book.category %}
+							<span class="badge rounded-pill text-bg-info">{{ category }}</span>
+							{% endfor %}
+						</p>
+						<p class="card-text">
+							{% for genre in book.genre %}
+							<span class="badge rounded-pill text-bg-warning">{{ genre }}</span>
+							{% endfor %}
+						</p>
+						<a href="/browse/details/{{ book.book_id }}" class="btn btn-primary">View Details</a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+
+		</div>
+	</div>
+
+	{% include "/includes/bs_toast.html" %}
+
+</body>
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+<script type="module" src="{{ url_for('static', filename = 'js/pages/user/browse_books.js') }}"></script>
+
+{% include "/includes/html_end.html" %}

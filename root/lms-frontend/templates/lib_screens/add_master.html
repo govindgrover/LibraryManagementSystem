@@ -1,0 +1,218 @@
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Add Master | Librarian</title>
+
+<!-- custom css -->
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" /> -->
+
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<!-- NAVBAR STARTS : common to all librarian pages -->
+	{% include "includes/navbar.html" %}
+	<!-- NAVBAR ENDS -->
+
+	<div class="container pt-5">
+		<h1 class="mb-5">Add Master Record</h1>
+		<div class="accordion" id="accordion-add-masters">
+
+			<!-- add author -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#addAuthor"
+						aria-expanded="true" aria-controls="addAuthor">
+						Add Author
+					</button>
+				</h2>
+				<div id="addAuthor" class="accordion-collapse collapse show" data-bs-parent="#accordion-add-masters">
+					<div class="accordion-body">
+						<form class="form p-2" action="/lib/process/author/add" name="add-author-form" method="POST">
+
+							<div class="row">
+								<div class="col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<div class="form-floating mb-3">
+										<input type="text" id="_name" class="form-control" name="name"
+											placeholder="Enter Author's Name" required />
+										<label for="_name">Author's Name</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<div class="form-floating mb-3">
+										<input type="text" id="_bio" class="form-control" name="bio"
+											placeholder="Enter Author's Bio" required />
+										<label for="_bio">Author's Bio</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="d-grid col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<button type="submit" id="add-author-button" class="btn btn-block btn-success">Add
+										Author</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- add publisher -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#addPublisher" aria-expanded="true" aria-controls="addPublisher">
+						Add Publisher
+					</button>
+				</h2>
+				<div id="addPublisher" class="accordion-collapse collapse" data-bs-parent="#accordion-add-masters">
+					<div class="accordion-body">
+						<form class="form p-2" action="/lib/process/publisher/add" name="add-publisher-form"
+							method="POST">
+
+							<div class="row">
+								<div class="col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<div class="form-floating mb-3">
+										<input type="text" id="_name" class="form-control" name="name"
+											placeholder="Enter Publisher's Name" required />
+										<label for="_name">Publisher's Name</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<div class="form-floating mb-3">
+										<input type="text" id="_desc" class="form-control" name="description"
+											placeholder="Enter Publisher's Bio" required />
+										<label for="_desc">Publisher's Description</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="d-grid col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<button type="submit" id="add-publisher-button"
+										class="btn btn-block btn-success">Add Publisher</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- add category -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#addCategory" aria-expanded="true" aria-controls="addCategory">
+						Add Category
+					</button>
+				</h2>
+				<div id="addCategory" class="accordion-collapse collapse" data-bs-parent="#accordion-add-masters">
+					<div class="accordion-body">
+						<form class="form p-2" action="/lib/process/category/add" name="add-category-form" method="POST">
+
+							<div class="row">
+								<div class="col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<div class="form-floating mb-3">
+										<input type="text" id="_name" class="form-control" name="name"
+											placeholder="Enter Category's Name" required />
+										<label for="_name">Category's Name</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="d-grid col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<button type="submit" id="add-category-button" class="btn btn-block btn-success">Add
+										Category</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- add genre -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#addGenre" aria-expanded="true" aria-controls="addGenre">
+						Add Genre
+					</button>
+				</h2>
+				<div id="addGenre" class="accordion-collapse collapse" data-bs-parent="#accordion-add-masters">
+					<div class="accordion-body">
+						<form class="form p-2" action="/lib/process/genre/add" name="add-genre-form" method="POST">
+
+							<div class="row">
+								<div class="col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<div class="form-floating mb-3">
+										<input type="text" id="_name" class="form-control" name="name"
+											placeholder="Enter Genre's Name" required />
+										<label for="_name">Genre's Name</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="d-grid col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<button type="submit" id="add-genre-button" class="btn btn-block btn-success">Add
+										Genre</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<!-- add language -->
+			<div class="accordion-item">
+				<h2 class="accordion-header">
+					<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+						data-bs-target="#addLanguage" aria-expanded="true" aria-controls="addLanguage">
+						Add Language
+					</button>
+				</h2>
+				<div id="addLanguage" class="accordion-collapse collapse" data-bs-parent="#accordion-add-masters">
+					<div class="accordion-body">
+						<form class="form p-2" action="/lib/process/language/add" name="add-language-form" method="POST">
+
+							<div class="row">
+								<div class="col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<div class="form-floating mb-3">
+										<input type="text" id="_name" class="form-control" name="name"
+											placeholder="Enter Language's Name" required />
+										<label for="_name">Language's Name</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="d-grid col-sm-4 col-sm-4 offset-sm-4 col-sm">
+									<button type="submit" id="add-language-button" class="btn btn-block btn-success">Add
+										Language</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	{% include "/includes/bs_toast.html" %}
+
+</body>
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+<script type="module" src="{{ url_for('static', filename = 'js/pages/lib/add_master.js') }}"></script>
+
+</html>

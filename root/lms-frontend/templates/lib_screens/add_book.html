@@ -1,0 +1,118 @@
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Add Book | Librarian</title>
+
+<!-- custom css -->
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" /> -->
+
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<!-- NAVBAR STARTS : common to all librarian pages -->
+	{% include "includes/navbar.html" %}
+	<!-- NAVBAR ENDS -->
+
+	<div class="container pt-5">
+		<h1 class="mb-3">Add new Book</h1>
+
+		<form class="row g-3 mb-2" action="/lib/process/books/add" name="add-book-form" method="POST" enctype="multipart/form-data">
+			<div class="col-md-6">
+				<label for="title" class="form-label">Title</label>
+				<input type="text" class="form-control" id="title" name="title" autofocus />
+			</div>
+			<div class="col-md-6">
+				<label for="isbn" class="form-label">ISBN</label>
+				<input type="text" class="form-control" id="isbn" name="isbn" />
+			</div>
+			<div class="col-12">
+				<label for="book_description" class="form-label">Description</label>
+				<textarea class="form-control" id="book_description" name="book_description"></textarea>
+			</div>
+			<div class="col-md-4">
+				<label for="edition" class="form-label">Edition</label>
+				<input type="text" class="form-control" id="edition" name="edition" />
+			</div>
+			<div class="col-md-5">
+				<label for="pub_date" class="form-label">Publication Date</label>
+				<input type="date" class="form-control" id="pub_date" name="pub_date" />
+			</div>
+			<div class="col-md-3">
+				<label for="price" class="form-label">Price (in Rs.)</label>
+				<input type="number" class="form-control" id="price" name="price" value="0.0" />
+			</div>
+			<div class="col-md-6">
+				<label for="publisher_id" class="form-label">Select Publisher</label>
+				<select id="publisher_id" class="form-select" name="publisher_id">
+					<option selected>Choose...</option>
+
+					{% for publisher in master_records.publisher %}
+					<option value="{{ publisher['publisher_id'] }}">{{ publisher["name"] }}</option>
+					{% endfor %}
+
+				</select>
+			</div>
+			<div class="col-md-6">
+				<label for="language_id" class="form-label">Select Language</label>
+				<select id="language_id" class="form-select" name="language_id">
+					<option selected>Choose...</option>
+
+					{% for language in master_records.language %}
+					<option value="{{ language['lang_id'] }}">{{ language["name"] }}</option>
+					{% endfor %}
+
+				</select>
+			</div>
+			<div class="col-md-4">
+				<label for="author_ids" class="form-label">Select Author(s)</label>
+				<select id="author_ids" class="form-select" name="author_ids" multiple>
+					<option selected>Choose...</option>
+
+					{% for author in master_records.author %}
+					<option value="{{ author['author_id'] }}">{{ author["name"] }}</option>
+					{% endfor %}
+
+				</select>
+			</div>
+			<div class="col-md-4">
+				<label for="category_ids" class="form-label">Select Category(ies)</label>
+				<select id="category_ids" class="form-select" name="category_ids" multiple>
+					<option selected>Choose...</option>
+
+					{% for category in master_records.category %}
+					<option value="{{ category['category_id'] }}">{{ category["name"] }}</option>
+					{% endfor %}
+
+				</select>
+			</div>
+			<div class="col-md-4">
+				<label for="genre_ids" class="form-label">Select Genre(s)</label>
+				<select id="genre_ids" class="form-select" name="genre_ids" multiple>
+					<option selected>Choose...</option>
+
+					{% for genre in master_records.genre %}
+					<option value="{{ genre['genre_id'] }}">{{ genre["name"] }}</option>
+					{% endfor %}
+
+				</select>
+			</div>
+			<div class="col-12">
+				<label for="book_content" class="form-label">Select book's content to upload (single file)</label>
+				<input class="form-control" type="file" id="book_content" name="book_content" />
+			</div>
+			<div class="col-12">
+				<button type="submit" id="add-book-button" class="btn btn-primary btn-block">Proceed</button>
+			</div>
+		</form>
+	</div>
+
+	{% include "/includes/bs_toast.html" %}
+
+</body>
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+<script type="module" src="{{ url_for('static', filename = 'js/pages/lib/add_book.js') }}"></script>
+
+</html>

@@ -1,0 +1,52 @@
+{# including HTML head tag' starting part #}
+{% include "/includes/html_head_start.html" %}
+
+<!-- page title -->
+<title>Logout | LMS</title>
+
+<!-- custom css -->
+
+<link rel="stylesheet" href="{{ url_for('static', filename = 'css/common.css') }}" />
+
+{# including HTML head tag' ending part #}
+{% include "/includes/html_head_end.html" %}
+
+<body class="">
+	<!-- NAVBAR STARTS : common to all librarian pages -->
+	{% include "includes/navbar.html" %}
+	<!-- NAVBAR ENDS -->
+
+	<div class="container">
+		<div class="row vertical-center">
+
+			<div class="col text-center">
+				<div class="col m-4 text-warning">
+					<span class="mx-3">
+						<i class="bi bi-box-arrow-in-left fs-1"></i>
+					</span>
+					<span class="display-6">Logout ?</span>
+				</div>
+
+				<form class="form p-2" action="acc/process/logout" name="login-op-form" method="POST">
+					<div class="row">
+						<div class="d-grid col-sm-4 col-sm-4 offset-sm-4 col-sm">
+							<button type="submit" id="login-button" class="btn btn-block btn-warning" data-bs-toggle=""
+								aria-pressed="">Logout</button>
+						</div>
+					</div>
+					<input type="hidden" name="op" value="logout" />
+				</form>
+			</div>
+		</div>
+	</div>
+
+	{% include "/includes/bs_toast.html" %}
+
+</body>
+
+{# including HTML script tag' #}
+{% include "/includes/scripts.html" %}
+
+<script type="module" src="{{ url_for('static', filename = 'js/pages/login_submit.js') }}"></script>
+
+{% include "/includes/html_end.html" %}

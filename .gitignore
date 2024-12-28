@@ -1,0 +1,4 @@
+*.pyc
+*.log
+.lms-env
+.tmp_graphs

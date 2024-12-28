@@ -1,0 +1,63 @@
+
+<nav class="navbar border-bottom border-body navbar-expand-lg bg-body-tertiary mb-2" data-bs-theme="">
+	<!-- for dark mode use => data-bs-theme="dark" -->
+	<div class="container-fluid">
+		<a href="./" class="navbar-brand">Library Management System | IITM BS</a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#lib_nav"
+			aria-controls="lib_nav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="lib_nav">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+				<li class="nav-item"><a href="/" class="nav-link text-info">Home</a></li>
+
+				{% if session["app_user"]["role"] == 0 %}
+				<li class="nav-item"><a href="/admin" class="nav-link text-primary">Dashboard</a></li>
+				<li class="nav-item"><a href="/admin/manage/users" class="nav-link text-primary">Manage App Users</a></li>
+				<li class="nav-item"><a href="/admin/book/view" class="nav-link text-primary">Manage Books</a></li>
+				<li class="nav-item"><a href="/admin/master/view" class="nav-link text-primary">Manage Masters</a></li>
+	
+				{% elif session["app_user"]["role"] == 1 %}
+				<li class="nav-item"><a href="/librarian" class="nav-link text-primary">Dashboard</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						Books
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="/lib/book/add">Add New</a></li>
+						<li><a class="dropdown-item" href="/lib/book/view">View & Manage</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown"
+						aria-expanded="false">
+						Masters
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="/lib/master/add">Add New</a></li>
+						<li><a class="dropdown-item" href="/lib/master/view">View & Manage</a></li>
+					</ul>
+				</li>
+				<li class="nav-item"><a href="/lib/manage/requests" class="nav-link text-primary">Issue Requests</a></li>
+				<li class="nav-item"><a href="/lib/manage/borrows" class="nav-link text-primary">Active Borrows</a></li>
+	
+				{% elif session["app_user"]["role"] == 2 %}
+				<li class="nav-item"><a href="/browse" class="nav-link text-primary">Browse Books</a></li>
+				<li class="nav-item"><a href="/mylibrary" class="nav-link text-primary">My Library</a></li>
+				{% endif %}
+
+				<li class="nav-item"><a href="/myaccount" class="nav-link text-success">My Account</a></li>
+				<li class="nav-item"><a href="/logout" class="nav-link text-success">Logout</a></li>
+
+			</ul>
+			<span class="navbar-text ps-3">
+				<span style="font-size: small;">Welcome</span>
+				<br />
+				<i>{{ session["app_user"]["name"] }}</i>
+			</span>
+		</div>
+	</div>
+</nav>
